@@ -1,7 +1,7 @@
 //width and height 480*270
 viewWidth		=	1920/2;
 viewHeight		=	1080/2;
-windowScale		=	3/2;
+windowScale		=	1;
 
 following		= instance_exists(objPlayer) ? objPlayer : noone;
 

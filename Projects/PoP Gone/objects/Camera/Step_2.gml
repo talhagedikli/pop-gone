@@ -97,7 +97,7 @@
 	
 	camX = clamp(camX, 0, room_width - camW);
 	camY = clamp(camY, 0, room_height - camH);
-	camera_set_view_size(VIEW, camW, camH);
+	camera_set_view_size(VIEW, round(camW), round(camH));
 
 	if keyboard_check_pressed(ord("S")) 
 	{
@@ -110,7 +110,7 @@
 
 	//apply the camera's positions and size
 
-	camera_set_view_pos(VIEW, camX, camY);
+	camera_set_view_pos(VIEW, round(camX), round(camY));
 
 
 	 //Smooth camera
