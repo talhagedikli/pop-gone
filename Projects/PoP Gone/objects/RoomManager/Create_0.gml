@@ -55,11 +55,28 @@ state
 	.add(room_get_name(rWorld), {	// ----------WORLD
 	enter: function() 
 	{
+		var text0 = [
+			"text0 text0 text0 text0 text0 text0 text0 text0 text0 text0 ",
+			"tex0 tex0 tex0 tex0 tex0 tex0 tex0 tex0 tex0 tex0 tex0 tex0 ",
+			"te0 te0 te0 te0 te0 te0 te0 te0 te0 te0 te0 te0 te0 te0 te0 "
+		];
+		var text1 = [
+			"[wave]text1 text1 text1 text1 text1 text1 text1 text1 text1 text1[/] ",
+			"[wave]tex1 tex1 tex1 tex1 tex1 tex1 tex1 tex1 tex1 tex1 tex1 tex1[/] ",
+			"[wave]te1 te1 te1 te1 te1 te1 te1 te1 te1 te1 te1 te1 te1 te1 te1[/] "
+		];
+		var text2 = [
+			"[wave][rainbow]text2 text2 text2[/page] text2 text2 [/page]text2 text2 text2 text2 text2[/] ",
+			"[wave][rainbow]tex2 tex2 tex2 tex2 tex2 tex2 tex2 tex2 tex2 tex2 tex2 tex2[/] ",
+			"[wave][rainbow]te2 te2 te2 te2 te2 te2 te2 te2 te2 te2 te2 te2 te2 te2 te2[/] "
+		];
 		
+		var tb0	= new Textbox(120, 120, 4, 2, text0);
+		var tb1	= new Textbox(450, 340, 3, 2, text1);
+		var tb2	= new Textbox(300, 220, 2, 5, text2);
 	},
 	step: function()
-	{
-	
+	{	
 
 	},
 	leave: function() 

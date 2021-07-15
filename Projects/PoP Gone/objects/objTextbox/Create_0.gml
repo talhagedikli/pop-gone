@@ -1,14 +1,12 @@
-scale = new Vector2(image_xscale, image_yscale);
-upScale = new Vector2();
-downScale = new Vector2();
-blend = new Vector2(image_blend, image_alpha);
-image_xscale = 0;
-image_yscale = 0;
-image_index = 0;
-image_speed = 0;
-
-blend.set(c_dkgray, 0.6);
-
+#region Create----------------------------------------------------------------------------------------
+// Textbox setup
+scale		= new Vector2(0, 0);
+blend		= new Vector2(c_dkgray, 0.6);
+upScale		= new Vector2();
+downScale	= new Vector2();
+// Textbox defaults
+image_index		= 0;
+image_speed		= 0;
 image_xscale	= scale.x;
 image_yscale	= scale.y;
 image_blend		= blend.x;
@@ -16,31 +14,27 @@ image_alpha		= blend.y;
 
 bounceTween = new TweenV2(tweenType.BOUNCEEASEIN);
 
-// Text
+// Textbox text
 text		= [
-	"Hi. Welcome our [wobble][rainbow]PuB[/wobble][/rainbow]. If you want to fuck some ass you can come here. [/c][c_red][wave](or if you want to get fucked by somebody)[/]",
-	"Hi. Welcome our [shake][rainbow]PuB[/shake][/rainbow]. If you want to fuck some ass you can come here. [/c][c_white][jitter](or if you want to get fucked by somebody)[/]"
+	"Hi. Welcome our [wobble][rainbow]PuB[/wobble][/rainbow]. If you want to fuck some ass you can come here. [/c][c_red][wave](or if you want to get fucked by somebody)[/]"
 ];
+skip		= false;
 index		= 0;
 showText	= false;
+// Textbox apperance
 width		= 0;
 height		= 0;
 margin		= 5;
 texAlpha	= 0.8;
-skip		= false;
 
-element		= scribble(text);
-element
-.typewriter_in(1, 60)
-.typewriter_ease(SCRIBBLE_EASE.ELASTIC, 0, -25, 1, 1, 0, 0.1)
-	//.animation_wave(3, 5, 0.2)
-	//.animation_wobble(30, 0.2)
-	//.animation_rainbow(1, 0.2)
-element.typewriter_reset();
-element.page(0);
+// Scribble element
+element		= SCRIBBLE_NULL_ELEMENT;
+// Sound
+popSound	= aPop;
+popPlayed	= false;
+#endregion
 
-element.starting_format("fntText", c_black);
-
+#region Functions-------------------------------------------------------------------------------------
 findFirstWord = function(_text)
 {
 	var i = 0; repeat(string_length(_text))
@@ -57,11 +51,41 @@ findFirstWord = function(_text)
 	return "";
 }
 
-// Sound
-popSound	= aPop;
-popPlayed	= false;
+skipPageAndIndex = function()
+{
+	if (keyboard_check_pressed(vk_space))
+	{
+	    if (element.get_typewriter_paused())
+	    {
+			//If we're paused, unpause!
+			element.typewriter_unpause(false);
+	    }
+	    else if (element.get_typewriter_state() >= 1)
+	    {
+			skip = false;
+	        if (element.get_page() < element.get_pages() - 1)
+	        {
+	            //Otherwise move to the next page
+				element.page(element.get_page() + 1);
+				element.typewriter_reset();
+	        }
+	        else
+	        {
+	            //Increment our conversation index for the next piece of text
+				index = (index + 1) mod array_length(text);
+				element.page(0);
+				element.typewriter_reset();
+	        }
+	    }
+	    else
+	    {
+			skip = true;
+	    }
+	}
+}
+#endregion
 
-// States
+#region States----------------------------------------------------------------------------------------
 state = new SnowState("fadein");
 
 state.add("fadein", {
@@ -91,17 +115,20 @@ state.add("idle", {
 	{
 		if (position_meeting(mouse_x, mouse_y, self))
 		{ // Hovering Mouse
-			showText = true;
+			if (!showText)
+			{
+				showText = true;
+				// Play pop sound when hovering
+				var p = audio_play_sound(aPop, 2, false);
+				audio_sound_pitch(p, random_range(1, 1.05));
+			}
+			else
+			{
+				skipPageAndIndex();
+			}
 			// Reset box stuff
 			blend.set(c_white, 0.8);
 			scale.set(upScale.x, upScale.y);
-			// Play pop fadein sound once
-			if (!popPlayed)
-			{
-				var p = audio_play_sound(aPop, 2, false);
-				audio_sound_pitch(p, random_range(1, 1.05));
-				popPlayed = true;
-			}
 			// Calculate wrap width and height
 			if (width =! sprite_width && height =! sprite_height)
 			{
@@ -112,7 +139,6 @@ state.add("idle", {
 			{
 				state.change("fadeout")
 			}
-
 		}
 		else
 		{
@@ -120,8 +146,8 @@ state.add("idle", {
 			popPlayed = false;
 			// Reset the typewriter then close the scribble drawing
 			
-			if (element.get_typewriter_state() =! 0)	element.typewriter_reset();
-			if (element.get_page() =! 0)				element.page(0);
+			if (element.get_typewriter_state() > 0)		element.typewriter_reset();
+			if (element.get_page() > 0)					element.page(0);
 			showText = false;
 			// Reset box stuff
 			blend.set(c_dkgray, 0.6);
@@ -164,3 +190,5 @@ state.add("fadeout", {
 		}
 	}
 });
+#endregion
+
