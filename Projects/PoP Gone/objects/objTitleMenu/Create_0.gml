@@ -15,7 +15,9 @@ menu = [
 	["VOLUME", "RESOLUTION", "BACK"],	// Settings
 	[ ]									// Quit
 ];
-
+text	= ""
+element = scribble(text);
+element.starting_format("fntMenu", c_white);
 
 menuLevel = menus.main;
 pos = 0;

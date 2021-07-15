@@ -17,7 +17,6 @@
     {"id":{"name":"shRainbow","path":"shaders/shRainbow/shRainbow.yy",},"order":10,},
     {"id":{"name":"__CleanConfig","path":"scripts/__CleanConfig/__CleanConfig.yy",},"order":5,},
     {"id":{"name":"objTitleMenu","path":"objects/objTitleMenu/objTitleMenu.yy",},"order":0,},
-    {"id":{"name":"fntText","path":"fonts/fntText/fntText.yy",},"order":1,},
     {"id":{"name":"CleanBatchDrawVertexBuffer","path":"scripts/CleanBatchDrawVertexBuffer/CleanBatchDrawVertexBuffer.yy",},"order":1,},
     {"id":{"name":"__scribble_gc_collect","path":"scripts/__scribble_gc_collect/__scribble_gc_collect.yy",},"order":8,},
     {"id":{"name":"CameraClass","path":"scripts/CameraClass/CameraClass.yy",},"order":0,},
@@ -72,7 +71,7 @@
     {"id":{"name":"shdr_tfx_circle","path":"shaders/shdr_tfx_circle/shdr_tfx_circle.yy",},"order":1,},
     {"id":{"name":"shBloomAppsurf","path":"shaders/shBloomAppsurf/shBloomAppsurf.yy",},"order":17,},
     {"id":{"name":"scribble","path":"scripts/scribble/scribble.yy",},"order":8,},
-    {"id":{"name":"fntRainyHearts","path":"fonts/fntRainyHearts/fntRainyHearts.yy",},"order":2,},
+    {"id":{"name":"fntText","path":"fonts/fntText/fntText.yy",},"order":2,},
     {"id":{"name":"UsefulFunctions","path":"scripts/UsefulFunctions/UsefulFunctions.yy",},"order":1,},
     {"id":{"name":"shdr_tfx_random_squares","path":"shaders/shdr_tfx_random_squares/shdr_tfx_random_squares.yy",},"order":8,},
     {"id":{"name":"__scribble_generate_model","path":"scripts/__scribble_generate_model/__scribble_generate_model.yy",},"order":9,},
@@ -230,9 +229,8 @@
   "IncludedFiles": [
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"inigo quilez 2d sdf license.txt","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"inigo quilez 2d sdf license.txt","resourceType":"GMIncludedFile",},
-    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"fntText.yy","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"fntMenu.yy","resourceType":"GMIncludedFile",},
-    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"fntRainyHearts.yy","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"fntText.yy","resourceType":"GMIncludedFile",},
   ],
   "MetaData": {
     "IDEVersion": "2.3.3.570",

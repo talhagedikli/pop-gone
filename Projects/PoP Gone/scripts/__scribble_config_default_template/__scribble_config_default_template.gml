@@ -4,7 +4,7 @@
 
 function __scribble_config_default_template()
 {
-    starting_format(SCRIBBLE_DEFAULT_FONT, c_black);	// Default color edited
+    starting_format(SCRIBBLE_DEFAULT_FONT, c_white);	// Default color edited
     align(fa_left, fa_top);
     blend(c_white, 1.0); 
     transform(1, 1, 0); //No scaling or rotation

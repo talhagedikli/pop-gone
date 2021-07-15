@@ -17,12 +17,20 @@ var i = 0; repeat (length) {
 	var c = pos == i ? C_CRIMSON : c_white;
 	var a = pos == i ? asin(current_time / 10) : 1;
 	
+	//text	= "bbb";
+	var _element = scribble(menu[menuLevel][i]);
+	_element
+	.blend(c, a)
+	.draw(midX, midy + i*(string_height("TEST") + 1));
 	
-	draw_text_color(midX, midy + i*(string_height("TEST") + 1), menu[menuLevel][i], c, c, c, c, a);
+	//element
+	//.overwrite(menu[menuLevel][i])
+	//.blend(c, a)
+	//.draw(midX, midy + i*(string_height("TEST") + 1));
+	
+	//draw_text_color(midX, midy + i*(string_height("TEST") + 1), menu[menuLevel][i], c, c, c, c, a);
 	draw_set_valign(fa_top);
 	draw_set_halign(fa_left);
 	draw_set_alpha(1);
-	
-	
 	i++;	
 }

@@ -17,22 +17,29 @@ image_alpha		= blend.y;
 bounceTween = new TweenV2(tweenType.BOUNCEEASEIN);
 
 // Text
-scribble_font_set_default("fntRainyHearts");
-//text		= @"Hello to [wave]PoP Gone[/wave]. Your way may be long, tough and hard to find but you can do i... Well, i dont know if you can but at least give it a chance. [wave]Good luck[/wave].";
-testDialog	= "Hi. Welcome our [wobble][rainbow]PuB[/wobble][/rainbow]. If you want to fuck some ass you can come here. [/c][c_red][wave](or if you want to get fucked by somebody)[/]";
-text		= testDialog;
+text		= [
+	"Hi. Welcome our [wobble][rainbow]PuB[/wobble][/rainbow]. If you want to fuck some ass you can come here. [/c][c_red][wave](or if you want to get fucked by somebody)[/]",
+	"Hi. Welcome our [shake][rainbow]PuB[/shake][/rainbow]. If you want to fuck some ass you can come here. [/c][c_white][jitter](or if you want to get fucked by somebody)[/]"
+];
+index		= 0;
 showText	= false;
 width		= 0;
 height		= 0;
 margin		= 5;
 texAlpha	= 0.8;
-element		= scribble(text)
-	.typewriter_in(1, 60)
-	.typewriter_ease(SCRIBBLE_EASE.ELASTIC, 0, -25, 1, 1, 0, 0.1)
+skip		= false;
+
+element		= scribble(text);
+element
+.typewriter_in(1, 60)
+.typewriter_ease(SCRIBBLE_EASE.ELASTIC, 0, -25, 1, 1, 0, 0.1)
 	//.animation_wave(3, 5, 0.2)
 	//.animation_wobble(30, 0.2)
 	//.animation_rainbow(1, 0.2)
-element.typewriter_reset();	
+element.typewriter_reset();
+element.page(0);
+
+element.starting_format("fntText", c_black);
 
 findFirstWord = function(_text)
 {
@@ -55,9 +62,9 @@ popSound	= aPop;
 popPlayed	= false;
 
 // States
-state = new SnowState("max");
+state = new SnowState("fadein");
 
-state.add("max", {
+state.add("fadein", {
 	enter: function()
 	{
 		
@@ -74,6 +81,7 @@ state.add("max", {
 state.add("idle", {
 	enter: function()
 	{
+		// Extra scale when hovering or not
 		static up = 0.6;
 		static down = 0.0;
 		upScale.set(scale.x + up, scale.y + up);
@@ -84,14 +92,17 @@ state.add("idle", {
 		if (position_meeting(mouse_x, mouse_y, self))
 		{ // Hovering Mouse
 			showText = true;
+			// Reset box stuff
 			blend.set(c_white, 0.8);
 			scale.set(upScale.x, upScale.y);
+			// Play pop fadein sound once
 			if (!popPlayed)
 			{
 				var p = audio_play_sound(aPop, 2, false);
 				audio_sound_pitch(p, random_range(1, 1.05));
 				popPlayed = true;
 			}
+			// Calculate wrap width and height
 			if (width =! sprite_width && height =! sprite_height)
 			{
 				width = bbox_right - bbox_left;
@@ -99,38 +110,56 @@ state.add("idle", {
 			}
 			if (InputManager.clickLeftPressed)
 			{
-				state.change("min")
+				state.change("fadeout")
 			}
 
 		}
 		else
 		{
-			showText = false;
+			// Play pop sound once
 			popPlayed = false;
-			element.typewriter_reset();
+			// Reset the typewriter then close the scribble drawing
+			
+			if (element.get_typewriter_state() =! 0)	element.typewriter_reset();
+			if (element.get_page() =! 0)				element.page(0);
+			showText = false;
+			// Reset box stuff
 			blend.set(c_dkgray, 0.6);
 			scale.set(downScale.x, downScale.y);
 		}
 	}
 });
 
-state.add("min", {
+state.add("fadeout", {
 	enter: function()
 	{
+		// Reset the scribble then close the scribble drawing
 		element.typewriter_reset();
+		element.page(0);
+		index = 0;
 		showText = false;
+		// Reset box stuff
 		scale.set(0.1, 0.1);
+		// Play fadeout audio once
 		var p = audio_play_sound(aPop, 2, false);
 		audio_sound_pitch(p, random_range(0.5, 0.55));
 		popPlayed = true;
+		// Go to smaller sprite index
 		image_index = 1;
 	},
 	step: function()
 	{
+		// When fade out create new textbox and destroy itself
 		if (image_xscale == scale.x && image_yscale == scale.y)
 		{
-			var box = instance_create_layer(irandom_range(0, room_width), irandom_range(0, room_height), "Textboxes", objTextbox);
-			box.scale.set(random_range(2, 4), random_range(2, 4));
+			var mboxw, mboxh, minscl, maxscl;
+			minscl = 2;
+			maxscl = 4;
+			mboxw = sprite_get_width(sprTextbox) * minscl;
+			mboxh = sprite_get_height(sprTextbox) * maxscl;
+			//var box = instance_create_layer(irandom_range(0 + mboxw, room_width - mboxw), 
+			//			irandom_range(0 + mboxh, room_height - mboxh), "Textboxes", objTextbox);
+			//box.scale.set(random_range(minscl, maxscl), random_range(minscl, maxscl));
 			instance_destroy(self);
 		}
 	}
