@@ -7,8 +7,3 @@ if (switched)
 }
 
 state.step();
-
-
-
-
-

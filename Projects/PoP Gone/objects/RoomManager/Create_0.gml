@@ -74,6 +74,7 @@ state
 		var tb0	= new Textbox(120, 120, 4, 2, text0);
 		var tb1	= new Textbox(450, 340, 3, 2, text1);
 		var tb2	= new Textbox(300, 220, 2, 5, text2);
+		if (instance_exists(tb0.get())) show(tb0.get())
 	},
 	step: function()
 	{	
@@ -82,17 +83,7 @@ state
 	leave: function() 
 	{
 	}
-})
-
-
-
-
-
-
-
-
-
-
+});
 
 
 

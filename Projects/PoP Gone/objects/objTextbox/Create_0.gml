@@ -51,7 +51,7 @@ findFirstWord = function(_text)
 	return "";
 }
 
-skipPageAndIndex = function()
+controlPageAndIndex = function()
 {
 	if (keyboard_check_pressed(vk_space))
 	{
@@ -82,6 +82,19 @@ skipPageAndIndex = function()
 			skip = true;
 	    }
 	}
+}
+
+createRandomTextbox = function()
+{
+	// Randomly create textbox
+	var mboxw, mboxh, minscl, maxscl;
+	minscl = 2;
+	maxscl = 4;
+	mboxw = sprite_get_width(sprTextbox) * minscl;
+	mboxh = sprite_get_height(sprTextbox) * maxscl;
+	var box = instance_create_layer(irandom_range(0 + mboxw, room_width - mboxw), 
+				irandom_range(0 + mboxh, room_height - mboxh), "Textboxes", objTextbox);
+	box.scale.set(random_range(minscl, maxscl), random_range(minscl, maxscl));
 }
 #endregion
 
@@ -124,7 +137,8 @@ state.add("idle", {
 			}
 			else
 			{
-				skipPageAndIndex();
+				// If showing text
+				controlPageAndIndex();
 			}
 			// Reset box stuff
 			blend.set(c_white, 0.8);
@@ -178,14 +192,7 @@ state.add("fadeout", {
 		// When fade out create new textbox and destroy itself
 		if (image_xscale == scale.x && image_yscale == scale.y)
 		{
-			var mboxw, mboxh, minscl, maxscl;
-			minscl = 2;
-			maxscl = 4;
-			mboxw = sprite_get_width(sprTextbox) * minscl;
-			mboxh = sprite_get_height(sprTextbox) * maxscl;
-			//var box = instance_create_layer(irandom_range(0 + mboxw, room_width - mboxw), 
-			//			irandom_range(0 + mboxh, room_height - mboxh), "Textboxes", objTextbox);
-			//box.scale.set(random_range(minscl, maxscl), random_range(minscl, maxscl));
+			// createRandomTextbox();
 			instance_destroy(self);
 		}
 	}

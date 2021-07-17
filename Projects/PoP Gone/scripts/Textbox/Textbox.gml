@@ -1,7 +1,7 @@
 // Init fonts
 scribble_font_add_all();
 
-// Textbox struct
+#region Functions and constructors
 function Textbox(_x, _y, _xscl = 1, _yscl = 1, _text = [""]) constructor
 {
 	textBox			= instance_create_layer(_x, _y, "Textboxes", objTextbox);
@@ -9,7 +9,7 @@ function Textbox(_x, _y, _xscl = 1, _yscl = 1, _text = [""]) constructor
 	textBox.scale.y = _yscl;
 	textBox.text	= _text;
 	
-	static create		= function(_x, _y, _xscl = 1, _yscl = 1, _text = [""])
+	static reCreate		= function(_x, _y, _xscl = 1, _yscl = 1, _text = [""])
 	{
 		destroy();
 		textBox			= instance_create_layer(_x, _y, "Textboxes", objTextbox);
@@ -35,9 +35,14 @@ function Textbox(_x, _y, _xscl = 1, _yscl = 1, _text = [""]) constructor
 		textBox.text = _text;
 		return self;
 	}
+	static get			= function()
+	{
+		return textBox;
+	}
 	static destroy		= function()
 	{
-		instance_destroy(textBox);
+		textBox.state.change("fadeout");
 		return self;
 	}
 }
+#endregion

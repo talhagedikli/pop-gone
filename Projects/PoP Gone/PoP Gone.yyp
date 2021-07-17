@@ -134,7 +134,7 @@
     {"id":{"name":"shStansCoat","path":"shaders/shStansCoat/shStansCoat.yy",},"order":14,},
     {"id":{"name":"scribble_font_set_style_family","path":"scripts/scribble_font_set_style_family/scribble_font_set_style_family.yy",},"order":5,},
     {"id":{"name":"Camera","path":"objects/Camera/Camera.yy",},"order":1,},
-    {"id":{"name":"Init","path":"scripts/Init/Init.yy",},"order":5,},
+    {"id":{"name":"Textbox","path":"scripts/Textbox/Textbox.yy",},"order":5,},
     {"id":{"name":"aPop","path":"sounds/aPop/aPop.yy",},"order":0,},
     {"id":{"name":"shColorDance","path":"shaders/shColorDance/shColorDance.yy",},"order":12,},
     {"id":{"name":"objTextboxGui","path":"objects/objTextboxGui/objTextboxGui.yy",},"order":0,},
